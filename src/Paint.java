@@ -18,6 +18,7 @@ public class Paint {
     private static String Filename_graph_x = System.getProperty("user.dir")+"\\data\\x.txt";
     private static String Filename_graph_y = System.getProperty("user.dir")+"\\data\\y.txt";
     private static String Filename_graph = System.getProperty("user.dir")+"\\data\\graph.jpeg";
+    private static String Filename_graph_exp = System.getProperty("user.dir")+"\\data\\exp.jpeg";
 
     //методы для вывода данных из коллекции XYSeries
     private static void show (XYSeries series, int t0, int T){
@@ -30,6 +31,33 @@ public class Paint {
         for (int i = 0; i < series.getItemCount(); i++){
             System.out.println("DataItem["+i+"] = "+series.getDataItem(i));
         }
+    }
+
+    private static void test_exp (double t0, double T) throws IOException {
+        int width = 1280;
+        int height = 720;
+
+        XYSeries series = new XYSeries("exp(x)");
+
+        for(double i = t0; i < T; i+=0.01){
+            series.add(i, Math.exp(i));
+        }
+
+        XYDataset xyDataset = new XYSeriesCollection(series);
+        JFreeChart chart = ChartFactory
+                .createXYLineChart("y = exp(x)", "x", "y",
+                        xyDataset,
+                        PlotOrientation.VERTICAL,
+                        true, true, true);
+        JFrame frame =
+                new JFrame("MinimalStaticChart");
+        // Помещаем график на фрейм
+        frame.getContentPane()
+                .add(new ChartPanel(chart));
+        frame.setSize(width,height);
+        frame.setSize(width,height);
+        ChartUtilities.saveChartAsJPEG( new File(Filename_graph_exp), chart , width , height );
+        frame.show();
     }
 
     //метод для формирования XYSeries - коллекции
@@ -62,5 +90,7 @@ public class Paint {
         frame.setSize(width,height);
         ChartUtilities.saveChartAsJPEG( new File(Filename_graph), chart , width , height );
         frame.show();
+        //для сравнения график экспоненты
+        test_exp(0, 100);
     }
 }

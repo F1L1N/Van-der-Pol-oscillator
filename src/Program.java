@@ -190,7 +190,7 @@ public class Program {
         K2[1][1] = integral("b3", t0, T);
         //осуществим суммирование
         for (j = 0; j < sigma.length; j++)
-            for (k = 0; k < sigma[0].length; k++)
+            for (k = 0; k < sigma[j].length; k++)
             {
                 sigma[j][k] = matrix_sum(matrix_mult(matrix_mult(F(T),2*A),K2),K1)[j][k];
             }
