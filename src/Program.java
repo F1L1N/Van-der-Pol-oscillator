@@ -38,7 +38,7 @@ public class Program {
         double[][] F_reverse = new double[2][2];
         F_reverse[0][0] = (1+t)/Math.exp(t);
         F_reverse[0][1] = -t/Math.exp(t);
-        F_reverse[1][0] = -t/Math.exp(t);
+        F_reverse[1][0] = t/Math.exp(t);
         F_reverse[1][1] = (1-t)/Math.exp(t);
         return F_reverse;
     }
