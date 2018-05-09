@@ -33,11 +33,12 @@ public class Paint {
         }
     }
 
+    //метод для вывода и сохранения в файл jpeg кривой y = exp(x)
     private static void test_exp (double t0, double T) throws IOException {
         int width = 1280;
         int height = 720;
 
-        XYSeries series = new XYSeries("exp(x)");
+        XYSeries series = new XYSeries("exp(t)");
 
         for(double i = t0; i < T; i+=0.01){
             series.add(i, Math.exp(i));
@@ -45,7 +46,7 @@ public class Paint {
 
         XYDataset xyDataset = new XYSeriesCollection(series);
         JFreeChart chart = ChartFactory
-                .createXYLineChart("y = exp(x)", "x", "y",
+                .createXYLineChart("y = exp(t)", "t", "y",
                         xyDataset,
                         PlotOrientation.VERTICAL,
                         true, true, true);
@@ -72,9 +73,7 @@ public class Paint {
         return series;
     }
 
-    public static void main(String[] args) throws IOException {
-        int width = 1280;
-        int height = 720;
+    public static void demonstration(int width, int height) throws IOException {
         //формирование XYSeries - коллекции
         XYSeries series = read_file();
         //формирование набора данных на основе ранее созданной коллекции
@@ -90,7 +89,5 @@ public class Paint {
         frame.setSize(width,height);
         ChartUtilities.saveChartAsJPEG( new File(Filename_graph), chart , width , height );
         frame.show();
-        //для сравнения график экспоненты
-        test_exp(0, 100);
     }
 }
