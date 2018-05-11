@@ -9,19 +9,19 @@ class SigmaFunction {
     //амплитуда
     private double A;
     //угловая частота
-    private static double omega;
+    private double omega;
     //шаг выполнения оценки
-    private static double h;
+    private double h;
     //левая граница рабочего промежутка
-    private static double t0;
+    private double t0;
     //правая граница рабочего промежутка
-    private static double T;
+    private double T;
     //переменные для хранения максимальных и минимальных значений нормы сигмы - матрицы,
     //а также их индексов
-    private static double g_max = -Math.pow(10,6);
-    private static double g_max_t;
-    private static double g_min = Math.pow(10,6);
-    private static double g_min_t;
+    private double g_max = -Math.pow(10,6);
+    private double g_max_t;
+    private double g_min = Math.pow(10,6);
+    private double g_min_t;
     //пути создания файлов с координатами
     private static String Filename_text = System.getProperty("user.dir")+"\\data\\evaluation.txt";
     private static String Filename_graph_X = System.getProperty("user.dir")+"\\data\\x.txt";
