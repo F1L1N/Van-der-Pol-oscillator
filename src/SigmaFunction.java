@@ -12,6 +12,8 @@ class SigmaFunction {
     private double omega;
     //шаг выполнения оценки
     private double h;
+    //управляющий параметр
+    private double nu;
     //левая граница рабочего промежутка
     private double t0;
     //правая граница рабочего промежутка
@@ -30,12 +32,13 @@ class SigmaFunction {
     private static TreeMap<Double, Double> dictionary = new TreeMap<>();
 
     //констуркторы класса
-    SigmaFunction (double s1, double s2, double s3, double s4, double s5){
+    SigmaFunction (double s1, double s2, double s3, double s4, double s5, double s6){
         h = s1;
         A = s2;
         omega = s3;
-        t0 = s4;
-        T = s5;
+        nu = s4;
+        t0 = s5;
+        T = s6;
     }
 
     SigmaFunction (){
@@ -45,10 +48,28 @@ class SigmaFunction {
         A = new Scanner(System.in).nextDouble();
         System.out.print("Ввод угловой частоты: ");
         omega = new Scanner(System.in).nextDouble();
+        System.out.print("Ввод управляющего параметра: ");
+        nu = new Scanner(System.in).nextDouble();
         System.out.print("Ввод левой границы интервала: ");
         t0 = new Scanner(System.in).nextDouble();
         System.out.print("Ввод правой границы интервала: ");
         T = new Scanner(System.in).nextDouble();
+    }
+
+    //метода для получения nu и последующего подсчета
+    private double[] nuAnalysis(){
+        double[] lambda = new double[2];
+        if ((nu >= 0)&&(nu < 2)) {
+            lambda[0] = (nu + Math.sqrt(Math.abs(Math.pow(nu,2)-4))*Math.sqrt(-1))/2;
+            lambda[1] = (nu - Math.sqrt(Math.abs(Math.pow(nu,2)-4))*Math.sqrt(-1))/2;
+        }else
+            if (nu >= 2){
+                lambda[0] = (nu + Math.sqrt(Math.pow(nu,2)-4))/2;
+                lambda[1] = (nu - Math.sqrt(Math.pow(nu,2)-4))/2;
+            }else{
+                System.out.print("nu из неверного промежутка");
+            }
+        return lambda;
     }
 
     //функция формирования фундаментальной матрицы
