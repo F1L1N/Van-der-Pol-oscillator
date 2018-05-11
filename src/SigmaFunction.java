@@ -69,6 +69,7 @@ class SigmaFunction {
             }else{
                 System.out.print("nu из неверного промежутка");
             }
+        System.out.println(Arrays.toString(lambda));
         return lambda;
     }
 
