@@ -7,7 +7,7 @@ import java.util.TreeMap;
 
 class SigmaFunction {
     //амплитуда
-    private double A;
+    private double Ampl;
     //угловая частота
     private double omega;
     //шаг выполнения оценки
@@ -24,6 +24,8 @@ class SigmaFunction {
     private double g_max_t;
     private double g_min = Math.pow(10,6);
     private double g_min_t;
+    //переменная для сравнивания double
+    private double eps = Math.pow(10,-3);
     //пути создания файлов с координатами
     private static String Filename_text = System.getProperty("user.dir")+"\\data\\evaluation.txt";
     private static String Filename_graph_X = System.getProperty("user.dir")+"\\data\\x.txt";
@@ -34,7 +36,7 @@ class SigmaFunction {
     //констуркторы класса
     SigmaFunction (double s1, double s2, double s3, double s4, double s5, double s6){
         h = s1;
-        A = s2;
+        Ampl = s2;
         omega = s3;
         nu = s4;
         t0 = s5;
@@ -45,7 +47,7 @@ class SigmaFunction {
         System.out.print("Ввод шага: ");
         h = new Scanner(System.in).nextDouble();
         System.out.print("Ввод амплитуды: ");
-        A = new Scanner(System.in).nextDouble();
+        Ampl = new Scanner(System.in).nextDouble();
         System.out.print("Ввод угловой частоты: ");
         omega = new Scanner(System.in).nextDouble();
         System.out.print("Ввод управляющего параметра: ");
@@ -69,20 +71,43 @@ class SigmaFunction {
             }else{
                 System.out.print("nu из неверного промежутка");
             }
-        System.out.println(Arrays.toString(lambda));
+        //System.out.println(Arrays.toString(lambda));
         return lambda;
     }
 
     //функция формирования фундаментальной матрицы
     private double[][] F (double t){
-        double[][] F = new double[2][2];
-        F[0][0] = (1-t)*Math.exp(t);
-        F[0][1] = t*Math.exp(t);
-        F[1][0] = -t*Math.exp(t);
-        F[1][1] = (1+t)*Math.exp(t);
-        return F;
+        double[] lambda = nuAnalysis();
+        double b0, b1;
+        if (Math.abs(lambda[0]-lambda[1]) >= eps){
+            b1 = (Math.exp(lambda[0]*t) - Math.exp(lambda[1]*t))/(lambda[0]-lambda[1]);
+            b0 = Math.exp(lambda[0]*t) - b1 * lambda[0];
+        }else{
+            b1 = t * Math.exp(lambda[0] * t);
+            b0 = Math.exp(lambda[0] * t) - b1 * lambda[0];
+        }
+        return matrix_sum(matrix_mult(E(),b0),matrix_mult(A(),b1));
     }
 
+    //возвращает единичную матрицу
+    private double[][] E(){
+        double[][] E = new double[2][2];
+        E[0][0] = 1;
+        E[0][1] = 0;
+        E[1][0] = 0;
+        E[1][1] = 1;
+        return E;
+    }
+
+    //возвращает матрицу коэффициентов
+    private double[][] A(){
+        double[][] A = new double[2][2];
+        A[0][0] = 0;
+        A[0][1] = 1;
+        A[1][0] = -1;
+        A[1][1] = nu;
+        return A;
+    }
     //функция формирования матрицы, обратной фундаментальной
     private double[][] F_reverse (double t){
         double[][] F_reverse = new double[2][2];
@@ -230,7 +255,7 @@ class SigmaFunction {
             for (k = 0; k < sigma[0].length; k++)
             {
                 p++;
-                K1[j][k] = A*integral("a"+p, t0, T);
+                K1[j][k] = Ampl *integral("a"+p, t0, T);
             }
         //сформируем второе слагаемое
         double[][] K2 = new double[2][2];
@@ -242,7 +267,7 @@ class SigmaFunction {
         for (j = 0; j < sigma.length; j++)
             for (k = 0; k < sigma[j].length; k++)
             {
-                sigma[j][k] = matrix_sum(matrix_mult(matrix_mult(F(T),2*A),K2),K1)[j][k];
+                sigma[j][k] = matrix_sum(matrix_mult(matrix_mult(F(T),2* Ampl),K2),K1)[j][k];
             }
         return sigma;
     }
