@@ -8,7 +8,7 @@ public class Program {
             System.out.println("Выберите режим: ");
             System.out.println("---------------------------------------");
             System.out.println("1. Формирование sigma и создание файлов");
-            System.out.println("2. Вывод графиков");
+            System.out.println("2. Вывод графика");
             System.out.println("0. Выход");
             System.out.println("-------------------------------");
 
@@ -31,6 +31,7 @@ public class Program {
                     }
                     break;
                 case 0:
+                    flag = 0;
                     break;
             }
         }

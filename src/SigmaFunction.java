@@ -75,8 +75,7 @@ class SigmaFunction {
         return lambda;
     }
 
-    //функция формирования фундаментальной матрицы
-    private double[][] F (double t){
+    private double[] formB (double t){
         double[] lambda = nuAnalysis();
         double b0, b1;
         if (Math.abs(lambda[0]-lambda[1]) >= eps){
@@ -86,7 +85,64 @@ class SigmaFunction {
             b1 = t * Math.exp(lambda[0] * t);
             b0 = Math.exp(lambda[0] * t) - b1 * lambda[0];
         }
-        return matrix_sum(matrix_mult(E(),b0),matrix_mult(A(),b1));
+        return new double[]{b0, b1};
+    }
+
+    private String[] formBStr (){
+        double[] lambda = nuAnalysis();
+        String b0, b1;
+        if (Math.abs(lambda[0]-lambda[1]) >= eps){
+            b1 = "(e^("+lambda[0]+"*t)-e^("+lambda[1]+"*t))/("+lambda[0]+"-"+lambda[1]+")";
+            b0 = "e^("+lambda[0]+"*t)-"+b1+"*"+lambda[0];
+        }else{
+            b1 = "t*e^("+lambda[0]+"*t)";
+            b0 = "e^("+lambda[0]+"*t)-"+b1+"*"+lambda[0];
+        }
+        return new String[]{b0, b1};
+    }
+
+    //функция формирования фундаментальной матрицы
+    private double[][] F (double t){
+        double[] b = formB(t);
+        return matrix_sum(matrix_mult(E(),b[0]),matrix_mult(A(),b[1]));
+    }
+
+    private String[][] FStr(){
+        String[][] F_reverse = new String[2][2];
+        String[] b = formBStr();
+        F_reverse[0][0] = b[0];
+        F_reverse[0][1] = b[1];
+        F_reverse[1][0] = "(-1)*" + b[1];
+        F_reverse[1][1] = b[0] + "+" + nu + "*" + b[1];
+        return F_reverse;
+    }
+
+    //функция формирования матрицы, обратной фундаментальной
+    private double[][] F_reverse (double[][] F, double t){
+        double[][] F_reverse = new double[2][2];
+        double det = F[0][0]*F[1][1] - F[0][1]*F[1][0];
+        F_reverse[0][0] = (1/det) * F[1][1];
+        F_reverse[0][1] = (1/det) * F[1][0];
+        F_reverse[1][0] = (1/det) * F[0][1];
+        F_reverse[1][1] = (1/det) * F[0][0];
+        /*F_reverse[0][0] = (1+t)/Math.exp(t);
+        F_reverse[0][1] = -t/Math.exp(t);
+        F_reverse[1][0] = t/Math.exp(t);
+        F_reverse[1][1] = (1-t)/Math.exp(t);*/
+        return F_reverse;
+    }
+
+
+    private String[][] FReverseStr(double t){
+        String[][] F_reverse = new String[2][2];
+        String[][] F_str = FStr();
+        double[][] F = F(t);
+        double det = F[0][0]*F[1][1] - F[0][1]*F[1][0];
+        F_reverse[0][0] = "(1/"+det+")*"+F_str[1][1];
+        F_reverse[0][1] = "(-1)*(1/"+det+")*"+F_str[1][0];
+        F_reverse[1][0] = "(-1)*(1/"+det+")*"+F_str[0][1];
+        F_reverse[1][1] = "(1/"+det+")*"+F_str[0][0];
+        return F_reverse;
     }
 
     //возвращает единичную матрицу
@@ -108,23 +164,14 @@ class SigmaFunction {
         A[1][1] = nu;
         return A;
     }
-    //функция формирования матрицы, обратной фундаментальной
-    private double[][] F_reverse (double t){
-        double[][] F_reverse = new double[2][2];
-        F_reverse[0][0] = (1+t)/Math.exp(t);
-        F_reverse[0][1] = -t/Math.exp(t);
-        F_reverse[1][0] = t/Math.exp(t);
-        F_reverse[1][1] = (1-t)/Math.exp(t);
-        return F_reverse;
-    }
 
     //функция формирования матрицы Коши
     private double[][] K (double t, double tao){
-        return matrix_mult(F(t), F_reverse(tao));
+        return matrix_mult(F(t), F_reverse(F(tao),tao));
     }
 
-    //набор подынтегральных выражений, используемыхв расчетах
-    private double f(double tao, double t, String s){
+    //набор подынтегральных выражений, используемых в расчетах
+    /*private double f(double tao, double t, String s){
         switch (s){
             case "a1":
                 return Math.exp(tao)*Math.sin(omega*tao)*((1-tao)*(1+t)-t*tao)/Math.exp(t);
@@ -142,7 +189,7 @@ class SigmaFunction {
                 return (1-tao)*Math.sin(omega*tao)/Math.exp(tao);
             default: return 0.0;
         }
-    }
+    }*/
 
     /*
     Метод Симпсона для нахождения определенного интеграла
@@ -156,12 +203,20 @@ class SigmaFunction {
             x[i] = a+i*h;
         }
         for(int i = 1; i < n; i++){
-            sum += f(x[i], b, s);
-            sum2 += f((x[i-1]+x[i])/2, b, s);
+            MathParser parser = new MathParser(a, b, Ampl, omega, x[i]);
+            sum += f(x[i]);
+            sum2 += f((x[i-1]+x[i])/2);
         }
-        return h/6*(f(a, b, s)+f(b, b, s)+2*sum+4*(sum2+b));
+        return h/6*(f(a)+f(b)+2*sum+4*(sum2+b));
     }
 
+    private double[][] integral(String[][] F, double a, double b){
+        double[][] temp = new double[2][2];
+        for (int i = 0; i < F.length; i++)
+            for (int j = 0; j < F[i].length; j++)
+                temp[i][j] = integral(F[i][j]+"*(A*sin(omega*t))",a,b);
+        return temp;
+    }
 
     //метод для суммирования матриц
     private double[][] matrix_sum(double[][] a, double[][] b){
@@ -248,6 +303,10 @@ class SigmaFunction {
     //метод для получения сигма - функции
     private double[][] form_sigma(double t0, double T){
         double[][] sigma = new double[2][2];
+        for (int i = 0; i < sigma.length; i++)
+            for (int j = 0; j < sigma[i].length; j++)
+                sigma[i][j] = matrix_mult(matrix_mult(F(T),3), integral(FReverseStr(F));
+        /*double[][] sigma = new double[2][2];
         int j, k, p = 0;
         //сформируем первое слагаемое из формулы
         double[][] K1 = new double[2][2];
@@ -269,7 +328,7 @@ class SigmaFunction {
             {
                 sigma[j][k] = matrix_sum(matrix_mult(matrix_mult(F(T),2* Ampl),K2),K1)[j][k];
             }
-        return sigma;
+        return sigma;*/
     }
 
     //метод для оценки сигма - функции
