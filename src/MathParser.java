@@ -18,12 +18,10 @@ public class MathParser {
         setVariable("e",Math.E);
     }
 
-    public MathParser(double a, double b, double A, double omega, double t) {
+    public MathParser(double A, double omega, double t) {
         var = new HashMap<>();
         setVariable("pi",Math.PI);
         setVariable("e",Math.E);
-        setVariable("a",a);
-        setVariable("b",b);
         setVariable("A",A);
         setVariable("omega",omega);
         setVariable("t",t);

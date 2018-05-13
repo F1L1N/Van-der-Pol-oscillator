@@ -75,6 +75,10 @@ class SigmaFunction {
         return lambda;
     }
 
+    /**
+     * Вставить новую переменную
+     * @param t текущее значение времени
+     */
     private double[] formB (double t){
         double[] lambda = nuAnalysis();
         double b0, b1;
@@ -118,7 +122,7 @@ class SigmaFunction {
     }
 
     //функция формирования матрицы, обратной фундаментальной
-    private double[][] F_reverse (double[][] F, double t){
+    private double[][] F_reverse (double[][] F){
         double[][] F_reverse = new double[2][2];
         double det = F[0][0]*F[1][1] - F[0][1]*F[1][0];
         F_reverse[0][0] = (1/det) * F[1][1];
@@ -133,11 +137,10 @@ class SigmaFunction {
     }
 
 
-    private String[][] FReverseStr(double t){
+    private String[][] FReverseStr(){
         String[][] F_reverse = new String[2][2];
         String[][] F_str = FStr();
-        double[][] F = F(t);
-        double det = F[0][0]*F[1][1] - F[0][1]*F[1][0];
+        String det = F_str[0][0]+"*"+F_str[1][1]+"-"+F_str[0][1]+"*"+F_str[1][0];
         F_reverse[0][0] = "(1/"+det+")*"+F_str[1][1];
         F_reverse[0][1] = "(-1)*(1/"+det+")*"+F_str[1][0];
         F_reverse[1][0] = "(-1)*(1/"+det+")*"+F_str[0][1];
@@ -167,12 +170,19 @@ class SigmaFunction {
 
     //функция формирования матрицы Коши
     private double[][] K (double t, double tao){
-        return matrix_mult(F(t), F_reverse(F(tao),tao));
+        return matrix_mult(F(t), F_reverse(F(tao)));
     }
 
     //набор подынтегральных выражений, используемых в расчетах
-    /*private double f(double tao, double t, String s){
-        switch (s){
+    private double f(double t, String expression){
+        MathParser parser = new MathParser(Ampl, omega, t);
+        try {
+            return parser.Parse(expression);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0.0;
+        }
+        /*switch (s){
             case "a1":
                 return Math.exp(tao)*Math.sin(omega*tao)*((1-tao)*(1+t)-t*tao)/Math.exp(t);
             case "a2":
@@ -188,14 +198,14 @@ class SigmaFunction {
             case "b3":
                 return (1-tao)*Math.sin(omega*tao)/Math.exp(tao);
             default: return 0.0;
-        }
-    }*/
+        }*/
+    }
 
     /*
     Метод Симпсона для нахождения определенного интеграла
     */
     private double integral(String s, double a, double b){
-        int n = 1000;
+        int n = 50;
         double sum = 0, sum2 = 0;
         double[] x = new double[n];
         double h = (b-a)/n;
@@ -203,11 +213,10 @@ class SigmaFunction {
             x[i] = a+i*h;
         }
         for(int i = 1; i < n; i++){
-            MathParser parser = new MathParser(a, b, Ampl, omega, x[i]);
-            sum += f(x[i]);
-            sum2 += f((x[i-1]+x[i])/2);
+            sum += f(x[i],s);
+            sum2 += f((x[i-1]+x[i])/2,s);
         }
-        return h/6*(f(a)+f(b)+2*sum+4*(sum2+b));
+        return h/6*(f(a,s)+f(b,s)+2*sum+4*(sum2+b));
     }
 
     private double[][] integral(String[][] F, double a, double b){
@@ -305,7 +314,7 @@ class SigmaFunction {
         double[][] sigma = new double[2][2];
         for (int i = 0; i < sigma.length; i++)
             for (int j = 0; j < sigma[i].length; j++)
-                sigma[i][j] = matrix_mult(matrix_mult(F(T),3), integral(FReverseStr(F));
+                sigma[i][j] = matrix_mult(matrix_mult(F(T),3), integral(FReverseStr(),t0,T))[i][j];
         /*double[][] sigma = new double[2][2];
         int j, k, p = 0;
         //сформируем первое слагаемое из формулы
@@ -327,8 +336,8 @@ class SigmaFunction {
             for (k = 0; k < sigma[j].length; k++)
             {
                 sigma[j][k] = matrix_sum(matrix_mult(matrix_mult(F(T),2* Ampl),K2),K1)[j][k];
-            }
-        return sigma;*/
+            }*/
+        return sigma;
     }
 
     //метод для оценки сигма - функции
