@@ -73,9 +73,6 @@ public class Paint {
         return series;
     }
 
-    /**
-     @deprecated frame.show()
-     */
     public static void demonstration(int width, int height) throws IOException {
         //формирование XYSeries - коллекции
         XYSeries series = read_file();

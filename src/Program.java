@@ -3,16 +3,16 @@ import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args) {
-        int flag = -1;
-        while (flag != 0) {
-            System.out.println("Выберите режим: ");
+        while (true) {
+            System.out.println("\r\nВыберите режим: ");
             System.out.println("---------------------------------------");
             System.out.println("1. Формирование sigma и создание файлов");
             System.out.println("2. Вывод графика");
             System.out.println("0. Выход");
-            System.out.println("-------------------------------");
+            System.out.println("---------------------------------------\r\n");
 
-            flag = new Scanner(System.in).nextInt();
+            System.out.print("Введите номер режима: ");
+            int flag = new Scanner(System.in).nextInt();
             switch (flag) {
                 case 1:
                     //выполнение процедуры оценивания c выводом затраченного на это времени
@@ -31,7 +31,7 @@ public class Program {
                     }
                     break;
                 case 0:
-                    flag = 0;
+                    System.exit(0);
                     break;
             }
         }

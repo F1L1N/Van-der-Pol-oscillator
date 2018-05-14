@@ -127,11 +127,11 @@ class SigmaFunction {
         double[] lambda = nuAnalysis();
         String b0, b1;
         if (Math.abs(lambda[0]-lambda[1]) >= eps){
-            b1 = "(e^("+lambda[0]+"*t)-e^("+lambda[1]+"*t))/("+lambda[0]+"-"+lambda[1]+")";
-            b0 = "e^("+lambda[0]+"*t)-"+b1+"*"+lambda[0];
+            b1 = "((e^("+lambda[0]+"*t)-e^("+lambda[1]+"*t))/("+lambda[0]+"-"+lambda[1]+"))";
+            b0 = "(e^("+lambda[0]+"*t)-"+b1+"*"+lambda[0]+")";
         }else{
-            b1 = "t*e^("+lambda[0]+"*t)";
-            b0 = "e^("+lambda[0]+"*t)-"+b1+"*"+lambda[0];
+            b1 = "(t*e^("+lambda[0]+"*t))";
+            b0 = "(e^("+lambda[0]+"*t)-"+b1+"*"+lambda[0]+")";
         }
         return new String[]{b0, b1};
     }
@@ -152,10 +152,10 @@ class SigmaFunction {
     private String[][] FStr(){
         String[][] F_reverse = new String[2][2];
         String[] b = formBStr();
-        F_reverse[0][0] = b[0];
-        F_reverse[0][1] = b[1];
-        F_reverse[1][0] = "(-1)*" + b[1];
-        F_reverse[1][1] = b[0] + "+" + nu + "*" + b[1];
+        F_reverse[0][0] = "("+b[0]+")";
+        F_reverse[0][1] = "("+b[1]+")";
+        F_reverse[1][0] = "((-1)*" + b[1]+")";
+        F_reverse[1][1] = "("+b[0]+"+"+nu+"*"+b[1]+")";
         return F_reverse;
     }
 
@@ -184,11 +184,11 @@ class SigmaFunction {
     private String[][] FReverseStr(){
         String[][] F_reverse = new String[2][2];
         String[][] F_str = FStr();
-        String det = F_str[0][0]+"*"+F_str[1][1]+"-"+F_str[0][1]+"*"+F_str[1][0];
-        F_reverse[0][0] = "(1/"+det+")*"+F_str[1][1];
-        F_reverse[0][1] = "(-1)*(1/"+det+")*"+F_str[1][0];
-        F_reverse[1][0] = "(-1)*(1/"+det+")*"+F_str[0][1];
-        F_reverse[1][1] = "(1/"+det+")*"+F_str[0][0];
+        String det ="("+F_str[0][0]+"*"+F_str[1][1]+"-"+F_str[0][1]+"*"+F_str[1][0]+")";
+        F_reverse[0][0] = "((1/"+det+")*"+F_str[1][1]+")";
+        F_reverse[0][1] = "((-1)*(1/"+det+")*"+F_str[1][0]+")";
+        F_reverse[1][0] = "((-1)*(1/"+det+")*"+F_str[0][1]+")";
+        F_reverse[1][1] = "((1/"+det+")*"+F_str[0][0]+")";
         return F_reverse;
     }
 
@@ -291,7 +291,7 @@ class SigmaFunction {
         double[][] temp = new double[2][2];
         for (int i = 0; i < F.length; i++)
             for (int j = 0; j < F[i].length; j++)
-                temp[i][j] = integral(F[i][j]+"*(A*sin(omega*t))",a,b);
+                temp[i][j] = integral("("+F[i][j]+")*(A*sin(omega*t))",a,b);
         return temp;
     }
 
@@ -394,9 +394,11 @@ class SigmaFunction {
     //метод для получения сигма - функции
     private double[][] form_sigma(double t0, double T){
         double[][] sigma = new double[2][2];
+        double[][] F = matrix_mult(F(T),3);
+        double[][] I = integral(FReverseStr(),t0,T);
         for (int i = 0; i < sigma.length; i++)
             for (int j = 0; j < sigma[i].length; j++)
-                sigma[i][j] = matrix_mult(matrix_mult(F(T),3), integral(FReverseStr(),t0,T))[i][j];
+                sigma[i][j] = matrix_mult(F, I)[i][j];
         /*double[][] sigma = new double[2][2];
         int j, k, p = 0;
         //сформируем первое слагаемое из формулы
