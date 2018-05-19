@@ -1,4 +1,4 @@
-public class Complex {
+public class Complex{
     final double x;
     final double y;
     public Complex(double x) {

@@ -1,28 +1,18 @@
 import java.util.HashMap;
 
-/**
- *
- * Класс модифицирован автором ShamaN.
- * Метод рекурсивного спуска для интерпретирования математических выражений.
- * Поддерживаются тригонометрические функции с одним/двумя параметрами.
- * @author shurik
- * @version 1.1
- */
 public class MathParser {
 
     private static HashMap<String, Double> var;
 
-    public MathParser() {
+    /**
+     * Конструктор класса
+     * @param omega - угловая частота
+     * @param t - время
+     */
+    public MathParser(double omega, double t) {
         var = new HashMap<>();
         setVariable("pi",Math.PI);
         setVariable("e",Math.E);
-    }
-
-    public MathParser(double A, double omega, double t) {
-        var = new HashMap<>();
-        setVariable("pi",Math.PI);
-        setVariable("e",Math.E);
-        setVariable("A",A);
         setVariable("omega",omega);
         setVariable("t",t);
     }
@@ -46,7 +36,6 @@ public class MathParser {
     }
 
     /**
-     *
      * @param varName
      * @return Возвращает значение переменной varName
      * @throws Exception ругаемся на отсутствие переменной
@@ -75,59 +64,55 @@ public class MathParser {
         return result.acc;
     }
 
-
+    /**
+     * Парсим математическое выражение
+     * @param s математическое выражение
+     * @return результат
+     * @throws Exception
+     */
     private Result binaryFunc(String s) throws Exception{
-
         Result cur;
-
         if(s.charAt(0) == '~'){
             cur = plusMinus(s.substring(1));
-
             cur.acc = ~ (int)cur.acc;
             return cur;
         }
-
         cur = plusMinus(s);
         double acc = cur.acc;
-
         cur.rest = skipSpaces(cur.rest);
 
         while(cur.rest.length() > 0){
             if(!(cur.rest.charAt(0) == '&' ||
                     cur.rest.charAt(0) == '|' ||
                     cur.rest.charAt(0) == '~')) break;
-
             char sign = cur.rest.charAt(0);
             String next = cur.rest.substring(1);
             cur = plusMinus(next);
-
-
             if(sign == '&')
                 acc = (int)acc & (int)cur.acc;
             else
                 acc = (int)acc | (int)cur.acc;
         }
-
         return new Result(acc,cur.rest);
-
     }
 
+    /**
+     * Парсим математическое выражение
+     * @param s математическое выражение
+     * @return результат
+     * @throws Exception
+     */
     private Result plusMinus(String s) throws Exception {
-
         Result cur = mulDiv(s);
         double acc = cur.acc;
-
         cur.rest = skipSpaces(cur.rest);
 
         while(cur.rest.length() > 0){
             if(!(cur.rest.charAt(0) == '+' || cur.rest.charAt(0) == '-'))
                 break;
-
             char sign = cur.rest.charAt(0);
             String next = cur.rest.substring(1);
-
             cur = binaryFunc(next);
-
             if(sign == '+')
                 acc+=cur.acc;
             else
@@ -136,24 +121,17 @@ public class MathParser {
         return new Result(acc,cur.rest);
     }
 
-
-
-
     private Result mulDiv(String s) throws Exception{
         Result cur = exponentiation(s);
         double acc = cur.acc;
-
         cur.rest = skipSpaces(cur.rest);
-
 
         while(true){
             if(cur.rest.length() == 0)
                 return cur;
-
             char sign = cur.rest.charAt(0);
             if(sign != '*' && sign != '/' && sign != '%' && sign != '\\')
                 return cur;
-
             String next = cur.rest.substring(1);
             Result right = exponentiation(next);
             switch(sign){
@@ -174,18 +152,13 @@ public class MathParser {
         }
     }
 
-
     private Result exponentiation(String s) throws Exception{
         Result cur = bracket(s);
         double acc = cur.acc;
-
         cur.rest = skipSpaces(cur.rest);
-
         while(true){
-
             if(cur.rest.length() == 0) return cur;
             if(cur.rest.charAt(0) !='^') break;
-
             String next = cur.rest.substring(1);
             cur = bracket(next);
             cur.acc = Math.pow(acc,cur.acc);
@@ -193,9 +166,12 @@ public class MathParser {
         return cur;
     }
 
-
+    /**
+     * Обработка скобок
+     * @param s математическое выражение
+     * @throws Exception
+     */
     private Result bracket(String s) throws Exception{
-
         s = skipSpaces(s);
         char zeroChar = s.charAt(0);
         if (zeroChar == '(') {
@@ -210,6 +186,11 @@ public class MathParser {
         return functionVariable(s);
     }
 
+    /**
+     * Обработка строки на предмет наличия функций и переменных
+     * @param s математическое выражение
+     * @throws Exception
+     */
     private Result functionVariable(String s) throws Exception{
         String f = "";
         int i = 0;
@@ -222,27 +203,34 @@ public class MathParser {
         }
         if (!f.isEmpty()) { // если что-нибудь нашли
             if ( s.length() > i && s.charAt( i ) == '(') {
-                // и следующий символ скобка значит - это функция
+                // следующий символ скобка значит - это функция
                 Result r = binaryFunc(s.substring(f.length()+1));
-
+                // если функция с двумя параметрами
                 if(!r.rest.isEmpty() && r.rest.charAt(0) == ','){
-                    // если функция с двумя параметрами
+
                     double acc = r.acc;
                     Result r2 = binaryFunc(r.rest.substring(1));
 
                     r2 = closeBracket(r2);
                     return processFunction(f, acc,r2);
-
+                // если функция с одним параметром
                 } else {
                     r = closeBracket(r);
                     return processFunction(f, r);
                 }
-            } else { // иначе - это переменная
+                // иначе - это переменная
+            } else {
                 return new Result(getVariable(f), s.substring(f.length()));
             }
         }
         return num(s);
     }
+
+    /**
+     * Обработка строки на предмет наличия закрывающей скобки
+     * @param r математическое выражение
+     * @throws Exception
+     */
     private Result closeBracket(Result r) throws Exception{
         if(!r.rest.isEmpty() && r.rest.charAt(0) ==')'){
             r.rest = r.rest.substring(1);
@@ -281,31 +269,37 @@ public class MathParser {
         return new Result(dPart, restPart);
     }
 
+    /**
+     * Обработка строки на предмет наличия функций и переменных
+     * @param func функция
+     * @param r функция
+     * @throws Exception
+     */
     private Result processFunction(String func, Result r) throws Exception{
         switch (func) {
             case "sin":
                 return new Result(Math.sin(r.acc), r.rest);
-            case "sinh": // гиперболический синус
+            case "sinh":
                 return new Result(Math.sinh(r.acc), r.rest);
             case "cos":
                 return new Result(Math.cos(r.acc), r.rest);
-            case "cosh": // гиперболический косинус
+            case "cosh":
                 return new Result(Math.cosh(r.acc), r.rest);
             case "tan":
                 return new Result(Math.tan(r.acc), r.rest);
-            case "tanh": // гиперболический тангенс
+            case "tanh":
                 return new Result(Math.tanh(r.acc), r.rest);
             case "ctg":
                 return new Result(1/Math.tan(r.acc), r.rest);
-            case "sec": // секанс
+            case "sec":
                 return new Result(1/Math.cos(r.acc), r.rest);
-            case "cosec": // косеканс
+            case "cosec":
                 return new Result(1/Math.sin(r.acc), r.rest);
             case "abs":
                 return new Result(Math.abs(r.acc), r.rest);
             case "ln":
                 return new Result(Math.log(r.acc), r.rest);
-            case "lg": // десятичный логарифм
+            case "lg":
                 return new Result(Math.log10(r.acc), r.rest);
             case "sqrt":
                 return new Result(Math.sqrt(r.acc), r.rest);

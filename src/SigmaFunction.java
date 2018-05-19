@@ -7,7 +7,6 @@ import java.util.TreeMap;
 
 /**
  * Класс сигма - функции
- * @author Филин Павел
  * @version 1.0
  */
 
@@ -97,7 +96,6 @@ class SigmaFunction {
             }else{
                 System.out.print("nu из неверного промежутка");
             }
-        //System.out.println(Arrays.toString(lambda));
         return lambda;
     }
 
@@ -170,10 +168,6 @@ class SigmaFunction {
         F_reverse[0][1] = (1/det) * F[1][0];
         F_reverse[1][0] = (1/det) * F[0][1];
         F_reverse[1][1] = (1/det) * F[0][0];
-        /*F_reverse[0][0] = (1+t)/Math.exp(t);
-        F_reverse[0][1] = -t/Math.exp(t);
-        F_reverse[1][0] = t/Math.exp(t);
-        F_reverse[1][1] = (1-t)/Math.exp(t);*/
         return F_reverse;
     }
 
@@ -231,31 +225,14 @@ class SigmaFunction {
      * @param t фундаментальная матрица
      * @param expression строка для синтаксического анализа
      */
-    private double f(double t, String expression){
-        MathParser parser = new MathParser(Ampl, omega, t);
+    private double f(double t, String expression) throws Exception {
+        MathParser parser = new MathParser(omega, t);
         try {
             return parser.Parse(expression);
         } catch (Exception e) {
             e.printStackTrace();
-            return 0.0;
+            return 1.0;
         }
-        /*switch (s){
-            case "a1":
-                return Math.exp(tao)*Math.sin(omega*tao)*((1-tao)*(1+t)-t*tao)/Math.exp(t);
-            case "a2":
-                return Math.exp(tao)*Math.sin(omega*tao)*(-t*(1-tao)+tao*(1-t))/Math.exp(t);
-            case "a3":
-                return Math.exp(tao)*Math.sin(omega*tao)*(tao*(1+t)-t*(1+tao))/Math.exp(t);
-            case "a4":
-                return Math.exp(tao)*Math.sin(omega*tao)*(-t*tao+(1+tao)*(1-t))/Math.exp(t);
-            case "b1":
-                return (1+tao)*Math.sin(omega*tao)/Math.exp(tao);
-            case "b2":
-                return -tao*Math.sin(omega*tao)/Math.exp(tao);
-            case "b3":
-                return (1-tao)*Math.sin(omega*tao)/Math.exp(tao);
-            default: return 0.0;
-        }*/
     }
 
     /**
@@ -265,8 +242,8 @@ class SigmaFunction {
      * @param a нижний предел интегрирования
      * @param b верхний предел интегрирования
      */
-    private double integral(String s, double a, double b){
-        int n = 50;
+    private double integral(String s, double a, double b) throws Exception {
+        int n = 10;
         double sum = 0, sum2 = 0;
         double[] x = new double[n];
         double h = (b-a)/n;
@@ -287,11 +264,11 @@ class SigmaFunction {
      * @param a нижний предел интегрирования
      * @param b верхний предел интегрирования
      */
-    private double[][] integral(String[][] F, double a, double b){
+    private double[][] integral(String[][] F, double a, double b) throws Exception {
         double[][] temp = new double[2][2];
         for (int i = 0; i < F.length; i++)
             for (int j = 0; j < F[i].length; j++)
-                temp[i][j] = integral("("+F[i][j]+")*(A*sin(omega*t))",a,b);
+                temp[i][j] = integral("("+F[i][j]+")*(sin(omega*t))",a,b);
         return temp;
     }
 
@@ -392,42 +369,14 @@ class SigmaFunction {
      * @param T правая граница рабочего промежутка
      */
     //метод для получения сигма - функции
-    private double[][] form_sigma(double t0, double T){
-        double[][] sigma = new double[2][2];
-        double[][] F = matrix_mult(F(T),3);
-        double[][] I = integral(FReverseStr(),t0,T);
-        for (int i = 0; i < sigma.length; i++)
-            for (int j = 0; j < sigma[i].length; j++)
-                sigma[i][j] = matrix_mult(F, I)[i][j];
-        /*double[][] sigma = new double[2][2];
-        int j, k, p = 0;
-        //сформируем первое слагаемое из формулы
-        double[][] K1 = new double[2][2];
-        for (j = 0; j < sigma.length; j++)
-            for (k = 0; k < sigma[0].length; k++)
-            {
-                p++;
-                K1[j][k] = Ampl *integral("a"+p, t0, T);
-            }
-        //сформируем второе слагаемое
-        double[][] K2 = new double[2][2];
-        K2[0][0] = integral("b1", t0, T);
-        K2[0][1] = integral("b2", t0, T);
-        K2[1][0] = integral("b2", t0, T);
-        K2[1][1] = integral("b3", t0, T);
-        //осуществим суммирование
-        for (j = 0; j < sigma.length; j++)
-            for (k = 0; k < sigma[j].length; k++)
-            {
-                sigma[j][k] = matrix_sum(matrix_mult(matrix_mult(F(T),2* Ampl),K2),K1)[j][k];
-            }*/
-        return sigma;
+    private double[][] form_sigma(double t0, double T) throws Exception {
+        return matrix_mult(matrix_mult(F(T),3*Ampl), integral(FReverseStr(),t0,T));
     }
 
     /**
      * Формирует оценку погрешности линеаризации
      */
-    public void evaluation(){
+    public void evaluation() throws Exception {
         //подготовка к записи в файл
         try(FileWriter writer = new FileWriter(Filename_text, false))
         {
