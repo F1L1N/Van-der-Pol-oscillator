@@ -109,7 +109,7 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/JbcParser.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/commons-math3-3.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
