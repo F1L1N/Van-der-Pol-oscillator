@@ -7,7 +7,8 @@ public class MathParser {
     /**
      * Конструктор класса
      */
-    MathParser() {
+    MathParser()
+    {
         var = new HashMap<>();
         setVariable("pi",Math.PI);
         setVariable("e",Math.E);
@@ -32,11 +33,12 @@ public class MathParser {
     }
 
     /**
-     * @param varName
+     * @param varName имя переменной
      * @return Возвращает значение переменной varName
      * @throws Exception ругаемся на отсутствие переменной
      */
-    private Double getVariable(String varName) throws Exception {
+    private Double getVariable(String varName) throws Exception
+    {
         if(!var.containsKey(varName)) {
             throw new Exception("Error:Try get unexists "+
                     "variable '"+varName+"'" );
@@ -50,7 +52,8 @@ public class MathParser {
      * @return результат
      * @throws Exception
      */
-    public double Parse(String s) throws Exception {
+    public double Parse(String s) throws Exception
+    {
         if(s.isEmpty())
             throw new Exception("Empty expression");
         Result result = binaryFunc(s);
@@ -66,7 +69,8 @@ public class MathParser {
      * @return результат
      * @throws Exception
      */
-    private Result binaryFunc(String s) throws Exception{
+    private Result binaryFunc(String s) throws Exception
+    {
         Result cur;
         if(s.charAt(0) == '~'){
             cur = plusMinus(s.substring(1));
@@ -98,7 +102,8 @@ public class MathParser {
      * @return результат
      * @throws Exception
      */
-    private Result plusMinus(String s) throws Exception {
+    private Result plusMinus(String s) throws Exception
+    {
         Result cur = mulDiv(s);
         double acc = cur.acc;
         cur.rest = skipSpaces(cur.rest);
@@ -123,7 +128,8 @@ public class MathParser {
      * @return результат
      * @throws Exception
      */
-    private Result mulDiv(String s) throws Exception{
+    private Result mulDiv(String s) throws Exception
+    {
         Result cur = exponentiation(s);
         double acc = cur.acc;
         cur.rest = skipSpaces(cur.rest);
@@ -160,7 +166,8 @@ public class MathParser {
      * @return результат
      * @throws Exception
      */
-    private Result exponentiation(String s) throws Exception{
+    private Result exponentiation(String s) throws Exception
+    {
         Result cur = bracket(s);
         double acc = cur.acc;
         cur.rest = skipSpaces(cur.rest);
@@ -179,7 +186,8 @@ public class MathParser {
      * @param s математическое выражение
      * @throws Exception
      */
-    private Result bracket(String s) throws Exception{
+    private Result bracket(String s) throws Exception
+    {
         s = skipSpaces(s);
         char zeroChar = s.charAt(0);
         if (zeroChar == '(') {
@@ -199,7 +207,8 @@ public class MathParser {
      * @param s математическое выражение
      * @throws Exception
      */
-    private Result functionVariable(String s) throws Exception{
+    private Result functionVariable(String s) throws Exception
+    {
         String f = "";
         int i = 0;
         // ищем название функции или переменной
@@ -239,7 +248,8 @@ public class MathParser {
      * @param r математическое выражение
      * @throws Exception
      */
-    private Result closeBracket(Result r) throws Exception{
+    private Result closeBracket(Result r) throws Exception
+    {
         if(!r.rest.isEmpty() && r.rest.charAt(0) ==')'){
             r.rest = r.rest.substring(1);
         } else
@@ -252,7 +262,8 @@ public class MathParser {
      * @param s математическое выражение
      * @throws Exception
      */
-    private Result num(String s) throws Exception{
+    private Result num(String s) throws Exception
+    {
         int i = 0;
         int dot_cnt = 0;
         boolean negative = false;
@@ -289,7 +300,8 @@ public class MathParser {
      * @param r функция
      * @throws Exception
      */
-    private Result processFunction(String func, Result r) throws Exception{
+    private Result processFunction(String func, Result r) throws Exception
+    {
         switch (func) {
             case "sin":
                 return new Result(Math.sin(r.acc), r.rest);
@@ -329,9 +341,8 @@ public class MathParser {
      * @param r функция
      * @throws Exception
      */
-    private Result processFunction(String func,
-                                   double acc,
-                                   Result r) throws Exception{
+    private Result processFunction(String func, double acc, Result r) throws Exception
+    {
         switch(func){
             case "log":
                 return new Result(Math.log(acc)/Math.log(r.acc),
@@ -357,7 +368,8 @@ public class MathParser {
     /**
      * Класс со свойствами acc и rest
      */
-    private class Result {
+    private class Result
+    {
         /** Поле аккумулятор */
         double acc;
         /** Поле необработанный остаток строки */

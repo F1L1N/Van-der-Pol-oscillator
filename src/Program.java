@@ -3,7 +3,8 @@ import java.util.Scanner;
 
 public class Program {
     public static void main(String[] args){
-        while (true) {
+        while (true)
+        {
             System.out.println("\r\nВыберите режим: ");
             System.out.println("------------------------------------------------------------");
             System.out.println("1. Формирование sigma и создание файлов");
@@ -14,7 +15,8 @@ public class Program {
 
             System.out.print("Введите номер режима: ");
             int flag = new Scanner(System.in).nextInt();
-            switch (flag) {
+            switch (flag)
+            {
                 case 1:
                     //выполнение процедуры оценивания c выводом затраченного на это времени
                     SigmaFunction sigma = new SigmaFunction();

@@ -51,8 +51,8 @@ public class Paint {
      * @param T правая граница интервала
      */
     private static void test_exp (double t0, double T) throws IOException {
-        int width = 1280;
-        int height = 720;
+        int width = 640;
+        int height = 480;
 
         XYSeries series = new XYSeries("exp(t)");
 

@@ -10,7 +10,8 @@ import java.util.TreeMap;
  * @version 1.0
  */
 
-class SigmaFunction {
+class SigmaFunction
+{
     /** амплитуда */
     private double A;
     /** угловая частота */
