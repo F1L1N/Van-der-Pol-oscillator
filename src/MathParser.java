@@ -9,7 +9,7 @@ public class MathParser {
      * @param omega - угловая частота
      * @param t - время
      */
-    public MathParser(double omega, double t) {
+    MathParser(double omega, double t) {
         var = new HashMap<>();
         setVariable("pi",Math.PI);
         setVariable("e",Math.E);
@@ -22,7 +22,7 @@ public class MathParser {
      * @param varName имя переменной
      * @param varValue значение переменной
      */
-    public static void setVariable(String varName, Double varValue) {
+    private static void setVariable(String varName, Double varValue) {
         var.put(varName, varValue);
     }
 
@@ -40,7 +40,7 @@ public class MathParser {
      * @return Возвращает значение переменной varName
      * @throws Exception ругаемся на отсутствие переменной
      */
-    public Double getVariable(String varName) throws Exception {
+    private Double getVariable(String varName) throws Exception {
         if(!var.containsKey(varName)) {
             throw new Exception("Error:Try get unexists "+
                     "variable '"+varName+"'" );
@@ -65,7 +65,7 @@ public class MathParser {
     }
 
     /**
-     * Парсим математическое выражение
+     * Обрабатывает логические операции
      * @param s математическое выражение
      * @return результат
      * @throws Exception
@@ -97,7 +97,7 @@ public class MathParser {
     }
 
     /**
-     * Парсим математическое выражение
+     * Обрабатывает операции сложения и вычитания
      * @param s математическое выражение
      * @return результат
      * @throws Exception
@@ -121,6 +121,12 @@ public class MathParser {
         return new Result(acc,cur.rest);
     }
 
+    /**
+     * Обрабатывает операции умножения и деления
+     * @param s математическое выражение
+     * @return результат
+     * @throws Exception
+     */
     private Result mulDiv(String s) throws Exception{
         Result cur = exponentiation(s);
         double acc = cur.acc;
@@ -152,6 +158,12 @@ public class MathParser {
         }
     }
 
+    /**
+     * Обрабатывает строку с возведением в степень
+     * @param s математическое выражение
+     * @return результат
+     * @throws Exception
+     */
     private Result exponentiation(String s) throws Exception{
         Result cur = bracket(s);
         double acc = cur.acc;
@@ -167,7 +179,7 @@ public class MathParser {
     }
 
     /**
-     * Обработка скобок
+     * Обработывает строку на предмет наличия открывающей скобки
      * @param s математическое выражение
      * @throws Exception
      */
@@ -227,7 +239,7 @@ public class MathParser {
     }
 
     /**
-     * Обработка строки на предмет наличия закрывающей скобки
+     * Обработывает строку на предмет наличия закрывающей скобки
      * @param r математическое выражение
      * @throws Exception
      */
@@ -239,6 +251,11 @@ public class MathParser {
         return r;
     }
 
+    /**
+     * Обработывает строку с числом
+     * @param s математическое выражение
+     * @throws Exception
+     */
     private Result num(String s) throws Exception{
         int i = 0;
         int dot_cnt = 0;
@@ -270,7 +287,8 @@ public class MathParser {
     }
 
     /**
-     * Обработка строки на предмет наличия функций и переменных
+     * Возвращает экземпляр класса результат
+     * с записанным в аккумулятор значением функции
      * @param func функция
      * @param r функция
      * @throws Exception
@@ -307,14 +325,22 @@ public class MathParser {
                 throw new Exception("function '" + func + "' is not defined");
         }
     }
+
+    /**
+     * Возвращает экземпляр класса результат
+     * с записанным в аккумулятор логарифма или исключающего или
+     * @param func функция
+     * @param r функция
+     * @throws Exception
+     */
     private Result processFunction(String func,
                                    double acc,
                                    Result r) throws Exception{
         switch(func){
-            case "log": // логарифм x по основанию y
+            case "log":
                 return new Result(Math.log(acc)/Math.log(r.acc),
                         r.rest);
-            case "xor": // исключающее или 
+            case "xor":
                 return new Result((int)acc ^ (int)r.acc,r.rest);
             default:
                 throw new Exception("function '" + func +
@@ -322,15 +348,30 @@ public class MathParser {
         }
     }
 
+    /**
+     * Возвращает строку без пробелов
+     * в начале и конце строки
+     * @param s математическое выражение
+     * @throws Exception
+     */
     private String skipSpaces(String s){
         return s.trim();
     }
 
-
+    /**
+     * Класс со свойствами acc и rest
+     */
     private class Result {
-        public double acc; // Аккумулятор
-        public String rest; // остаток строки, которую мы еще не обработали
-        public Result(double v, String r) {
+        /** Поле аккумулятор */
+        double acc;
+        /** Поле необработанный остаток строки */
+        String rest;
+        /**
+         * Конструктор - создание нового объекта с определенными значениями
+         * @param v - аккумулятор
+         * @param r - необработанный остаток строки
+         */
+        Result(double v, String r) {
             this.acc = v;
             this.rest = r;
         }

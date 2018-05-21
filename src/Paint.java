@@ -14,26 +14,42 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Paint {
-    //пути с файлами данных, использованных для построения графиков
+    /**
+     * Переменные - пути с файлами данных, использованных для построения графиков
+     */
     private static String Filename_graph_x = System.getProperty("user.dir")+"\\data\\x.txt";
     private static String Filename_graph_y = System.getProperty("user.dir")+"\\data\\y.txt";
     private static String Filename_graph = System.getProperty("user.dir")+"\\data\\graph.jpeg";
     private static String Filename_graph_exp = System.getProperty("user.dir")+"\\data\\exp.jpeg";
 
-    //методы для вывода данных из коллекции XYSeries
+    /**
+     * Демонстрирует содержимое коллекции XYSeries
+     * в промежутке от t0 до T
+     * @param series коллекция для вывода
+     * @param t0 левая граница интервала
+     * @param T правая граница интервала
+     */
     private static void show (XYSeries series, int t0, int T){
         for (int i = t0; i < T; i++){
             System.out.println("x = "+series.getX(i)+", y = "+series.getY(i));
         }
     }
 
+    /**
+     * Демонстрирует содержимое коллекции XYSeries
+     * @param series коллекция для вывода
+     */
     private static void show (XYSeries series){
         for (int i = 0; i < series.getItemCount(); i++){
             System.out.println("DataItem["+i+"] = "+series.getDataItem(i));
         }
     }
 
-    //метод для вывода и сохранения в файл jpeg кривой y = exp(x)
+    /**
+     * Выводит на фрейм график кривой exp(t)
+     * @param t0 левая граница интервала
+     * @param T правая граница интервала
+     */
     private static void test_exp (double t0, double T) throws IOException {
         int width = 1280;
         int height = 720;
@@ -61,7 +77,10 @@ public class Paint {
         frame.show();
     }
 
-    //метод для формирования XYSeries - коллекции
+    /**
+     * Возращает коллекцию XYSeries,
+     * сформированную из файлов
+     */
     private static XYSeries read_file() throws IOException {
         XYSeries series = new XYSeries("σ(t)");
         BufferedReader reader_x = new BufferedReader(new FileReader(Filename_graph_x));
@@ -73,6 +92,11 @@ public class Paint {
         return series;
     }
 
+    /**
+     * Выводит на фрейм график кривой exp(t)
+     * @param width ширина окна
+     * @param height высота окна
+     */
     public static void demonstration(int width, int height) throws IOException {
         //формирование XYSeries - коллекции
         XYSeries series = read_file();

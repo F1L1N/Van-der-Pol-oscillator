@@ -2,7 +2,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Program {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
         while (true) {
             System.out.println("\r\nВыберите режим: ");
             System.out.println("------------------------------------------------------------");
@@ -39,6 +39,7 @@ public class Program {
                     }
                     break;
                 case 0:
+                    //заверешение работы программы
                     System.exit(0);
                     break;
             }
