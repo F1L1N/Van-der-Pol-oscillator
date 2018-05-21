@@ -5,18 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe2553a1-f426-4706-8aee-412468a88107" name="Default" comment="Added graphic exp for comparison">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/BracerParser.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/FQW.iml" afterPath="$PROJECT_DIR$/FQW.iml" />
-      <change beforePath="$PROJECT_DIR$/data/evaluation.txt" afterPath="$PROJECT_DIR$/data/evaluation.txt" />
-      <change beforePath="$PROJECT_DIR$/data/graph.jpeg" afterPath="$PROJECT_DIR$/data/graph.jpeg" />
-      <change beforePath="$PROJECT_DIR$/data/x.txt" afterPath="$PROJECT_DIR$/data/x.txt" />
-      <change beforePath="$PROJECT_DIR$/data/y.txt" afterPath="$PROJECT_DIR$/data/y.txt" />
-      <change beforePath="$PROJECT_DIR$/out/production/FQW/Complex.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/FQW/SigmaFunction.class" afterPath="$PROJECT_DIR$/out/production/FQW/SigmaFunction.class" />
-      <change beforePath="$PROJECT_DIR$/src/Complex.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/Program.java" afterPath="$PROJECT_DIR$/src/Program.java" />
       <change beforePath="$PROJECT_DIR$/src/SigmaFunction.java" afterPath="$PROJECT_DIR$/src/SigmaFunction.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -47,8 +36,8 @@
       <file leaf-file-name="BracerParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/BracerParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1428">
-              <caret line="45" column="71" lean-forward="true" selection-start-line="45" selection-start-column="71" selection-end-line="45" selection-end-column="71" />
+            <state relative-caret-position="-1648">
+              <caret line="170" column="9" lean-forward="true" selection-start-line="170" selection-start-column="9" selection-end-line="170" selection-end-column="9" />
               <folding>
                 <element signature="e#0#16321#0" expanded="true" />
                 <element signature="imports" expanded="true" />
@@ -73,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SigmaFunction.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SigmaFunction.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SigmaFunction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="268" column="53" lean-forward="true" selection-start-line="268" selection-start-column="53" selection-end-line="268" selection-end-column="53" />
+            <state relative-caret-position="414">
+              <caret line="296" column="8" lean-forward="false" selection-start-line="296" selection-start-column="8" selection-end-line="296" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#8783#8784#0" expanded="true" />
@@ -87,24 +76,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Complex.java" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.ideaLibSources/commons-math3-3.0-sources.jar!/org/apache/commons/math3/complex/Complex.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="766">
-              <caret line="1227" column="13" lean-forward="false" selection-start-line="1227" selection-start-column="13" selection-end-line="1227" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#41511#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MathParser.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MathParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MathParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+            <state relative-caret-position="221">
+              <caret line="13" column="34" lean-forward="true" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -210,6 +186,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -253,9 +231,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
     </panes>
   </component>
@@ -549,7 +525,8 @@
       <workItem from="1526722618223" duration="2165000" />
       <workItem from="1526725985744" duration="5006000" />
       <workItem from="1526809225475" duration="6882000" />
-      <workItem from="1526820422942" duration="3174000" />
+      <workItem from="1526820422942" duration="3509000" />
+      <workItem from="1526888874242" duration="2659000" />
     </task>
     <task id="LOCAL-00001" summary="Added graphic exp for comparison">
       <created>1525514115962</created>
@@ -562,7 +539,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="138936000" />
+    <option name="totallyTimeSpent" value="141930000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -570,14 +547,13 @@
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32723576" sideWeight="0.48333332" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4034553" sideWeight="0.52916664" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3800813" sideWeight="0.47083333" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3800813" sideWeight="0.47083333" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -596,6 +572,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32723576" sideWeight="0.48333332" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -972,27 +949,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.ideaLibSources/commons-math3-3.0-sources.jar!/org/apache/commons/math3/complex/Complex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="766">
-          <caret line="1227" column="13" lean-forward="false" selection-start-line="1227" selection-start-column="13" selection-end-line="1227" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#41511#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Paint.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="22" column="50" lean-forward="false" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Program.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -1003,22 +959,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SigmaFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="268" column="53" lean-forward="true" selection-start-line="268" selection-start-column="53" selection-end-line="268" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8783#8784#0" expanded="true" />
-            <element signature="e#8850#8851#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/BracerParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1428">
-          <caret line="45" column="71" lean-forward="true" selection-start-line="45" selection-start-column="71" selection-end-line="45" selection-end-column="71" />
+        <state relative-caret-position="-1648">
+          <caret line="170" column="9" lean-forward="true" selection-start-line="170" selection-start-column="9" selection-end-line="170" selection-end-column="9" />
           <folding>
             <element signature="e#0#16321#0" expanded="true" />
             <element signature="imports" expanded="true" />
@@ -1042,11 +986,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="jar://$USER_HOME$/.ideaLibSources/commons-math3-3.0-sources.jar!/org/apache/commons/math3/complex/Complex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="392">
+          <caret line="1201" column="7" lean-forward="false" selection-start-line="1201" selection-start-column="7" selection-end-line="1201" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#41511#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Paint.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="22" column="50" lean-forward="false" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/MathParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="24" selection-end-line="11" selection-end-column="24" />
+        <state relative-caret-position="221">
+          <caret line="13" column="34" lean-forward="true" selection-start-line="13" selection-start-column="34" selection-end-line="13" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SigmaFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="296" column="8" lean-forward="false" selection-start-line="296" selection-start-column="8" selection-end-line="296" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8783#8784#0" expanded="true" />
+            <element signature="e#8850#8851#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
