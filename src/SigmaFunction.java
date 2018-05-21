@@ -12,7 +12,7 @@ import java.util.TreeMap;
 
 class SigmaFunction {
     /** амплитуда */
-    private double Ampl;
+    private double A;
     /** угловая частота */
     private double omega;
     /** шаг выполнения оценки */
@@ -54,9 +54,10 @@ class SigmaFunction {
      * @param s5 - левая граница рабочего промежутка
      * @param s6 - правая граница рабочего промежутка
      */
-    SigmaFunction (double s1, double s2, double s3, double s4, double s5, double s6){
+    SigmaFunction (double s1, double s2, double s3, double s4, double s5, double s6)
+    {
         h = s1;
-        Ampl = s2;
+        A = s2;
         omega = s3;
         nu = s4;
         t0 = s5;
@@ -66,11 +67,13 @@ class SigmaFunction {
     /**
      * Конструктор класса с вводом параметров
      */
-    SigmaFunction (){
+    SigmaFunction ()
+    {
         System.out.print("Ввод шага: ");
         h = new Scanner(System.in).nextDouble();
         System.out.print("Ввод амплитуды: ");
-        Ampl = new Scanner(System.in).nextDouble();
+        A = new Scanner(System.in).nextDouble();
+        A = new Scanner(System.in).nextDouble();
         System.out.print("Ввод угловой частоты: ");
         omega = new Scanner(System.in).nextDouble();
         System.out.print("Ввод управляющего параметра: ");
@@ -84,7 +87,8 @@ class SigmaFunction {
     /**
      * Анализирует nu и возвращает собственные значения системы
      */
-    private double[] nuAnalysis(){
+    private double[] nuAnalysis()
+    {
         double[] lambda = new double[2];
         if (nu >= 2) {
             lambda[0] = (nu + Math.sqrt(Math.pow(nu, 2) - 4)) / 2;
@@ -99,7 +103,8 @@ class SigmaFunction {
      * Возращает массив с коэффициентами для получения фундаментальной матрицы
      * @param t текущее значение времени
      */
-    private double[] formB (double t){
+    private double[] B(double t)
+    {
         double[] lambda = nuAnalysis();
         double b0, b1;
         if (Math.abs(lambda[0]-lambda[1]) >= eps){
@@ -117,7 +122,8 @@ class SigmaFunction {
      * для получения фундаментальной матрицы
      * для последующего парсинга
      */
-    private String[] formBStr (){
+    private String[] B()
+    {
         double[] lambda = nuAnalysis();
         String b0, b1;
         if (Math.abs(lambda[0]-lambda[1]) >= eps){
@@ -134,18 +140,20 @@ class SigmaFunction {
      * Возращает фундаментальную матрицу
      * @param t текущее значение времени
      */
-    private double[][] F (double t){
-        double[] b = formB(t);
-        return matrix_sum(matrix_mult(E(),b[0]),matrix_mult(A(),b[1]));
+    private double[][] F(double t)
+    {
+        double[] b = B(t);
+        return matrix_sum(matrixMultiplication(E(),b[0]), matrixMultiplication(A(),b[1]));
     }
 
     /**
      * Возращает фундаментальную матрицу
      * для последующего парсинга
      */
-    private String[][] FStr(){
+    private String[][] F()
+    {
         String[][] F_reverse = new String[2][2];
-        String[] b = formBStr();
+        String[] b = B();
         F_reverse[0][0] = "("+b[0]+")";
         F_reverse[0][1] = "("+b[1]+")";
         F_reverse[1][0] = "((-1)*" + b[1]+")";
@@ -157,7 +165,8 @@ class SigmaFunction {
      * Возращает матрицу, обратную фундаментальной
      * @param F фундаментальная матрица
      */
-    private double[][] F_reverse (double[][] F){
+    private double[][] FReverse(double[][] F)
+    {
         double[][] F_reverse = new double[2][2];
         double det = F[0][0]*F[1][1] - F[0][1]*F[1][0];
         F_reverse[0][0] = (1/det) * F[1][1];
@@ -171,9 +180,10 @@ class SigmaFunction {
      * Возращает матрицу, обратную фундаментальной,
      * для последующего парсинга
      */
-    private String[][] FReverseStr(){
+    private String[][] FReverse()
+    {
         String[][] F_reverse = new String[2][2];
-        String[][] F_str = FStr();
+        String[][] F_str = F();
         String det ="("+F_str[0][0]+"*"+F_str[1][1]+"-"+F_str[0][1]+"*"+F_str[1][0]+")";
         F_reverse[0][0] = "((1/"+det+")*"+F_str[1][1]+")";
         F_reverse[0][1] = "((-1)*(1/"+det+")*"+F_str[1][0]+")";
@@ -185,7 +195,8 @@ class SigmaFunction {
     /**
      * Возвращает единичную матрицу
      */
-    private double[][] E(){
+    private double[][] E()
+    {
         double[][] E = new double[2][2];
         E[0][0] = 1;
         E[0][1] = 0;
@@ -197,7 +208,8 @@ class SigmaFunction {
     /**
      * Возвращает матрицу коэффициентов системы
      */
-    private double[][] A(){
+    private double[][] A()
+    {
         double[][] A = new double[2][2];
         A[0][0] = 0;
         A[0][1] = 1;
@@ -211,8 +223,9 @@ class SigmaFunction {
      * @param t первый параметр Матрицы Коши
      * @param tao второй параметр Матрицы Коши
      */
-    private double[][] K (double t, double tao){
-        return matrix_mult(F(t), F_reverse(F(tao)));
+    private double[][] K (double t, double tao)
+    {
+        return matrixMultiplication(F(t), FReverse(F(tao)));
     }
 
     /**
@@ -221,7 +234,8 @@ class SigmaFunction {
      * @param t фундаментальная матрица
      * @param expression строка для синтаксического анализа
      */
-    private double f(double t, String expression) {
+    private double f(double t, String expression)
+    {
         MathParser parser = new MathParser();
         parser.setVariable("omega",omega);
         parser.setVariable("t",t);
@@ -240,7 +254,8 @@ class SigmaFunction {
      * @param a нижний предел интегрирования
      * @param b верхний предел интегрирования
      */
-    private double integral(String s, double a, double b) {
+    private double integral(String s, double a, double b)
+    {
         int n = 10;
         double sum = 0, sum2 = 0;
         double[] x = new double[n];
@@ -262,7 +277,8 @@ class SigmaFunction {
      * @param a нижний предел интегрирования
      * @param b верхний предел интегрирования
      */
-    private double[][] integral(String[][] F, double a, double b) {
+    private double[][] integral(String[][] F, double a, double b)
+    {
         double[][] temp = new double[2][2];
         for (int i = 0; i < F.length; i++)
             for (int j = 0; j < F[i].length; j++)
@@ -275,7 +291,8 @@ class SigmaFunction {
      * @param a первое слагаемое
      * @param b второе слагаемое
      */
-    private double[][] matrix_sum(double[][] a, double[][] b){
+    private double[][] matrix_sum(double[][] a, double[][] b)
+    {
         double[][] result = new double[a.length][a[0].length];
         for (int i = 0; i < a.length; i++)
             for (int j = 0; j < a[i].length; j++)
@@ -287,7 +304,8 @@ class SigmaFunction {
      * Возвращает евклидову норму матрицы
      * @param sigma входная матрица
      */
-    private static double euc_norm(double[][] sigma){
+    private static double euc_norm(double[][] sigma)
+    {
         double sum = 0;
         for (double[] h : sigma)
             for (int j = 0; j < sigma[0].length;j++) {
@@ -301,7 +319,8 @@ class SigmaFunction {
      * @param mA первый множитель
      * @param mB второй множитель
      */
-    private double[][] matrix_mult(double[][] mA, double[][] mB){
+    private double[][] matrixMultiplication(double[][] mA, double[][] mB)
+    {
         double[][] res = new double[mA.length][mB[0].length];
         for (int i = 0; i < mA.length; i++) {
             for (int j = 0; j < mB[0].length; j++) {
@@ -318,7 +337,8 @@ class SigmaFunction {
      * @param mA матрица
      * @param mB число
      */
-    private double[][] matrix_mult(double[][] mA, double mB){
+    private double[][] matrixMultiplication(double[][] mA, double mB)
+    {
         for (int i = 0; i < mA.length; i++) {
             for (int j = 0; j < mA[i].length; j++) {
                 mA[i][j] = mA[i][j] * mB;
@@ -330,7 +350,8 @@ class SigmaFunction {
     /**
      * Формирует файлы с координатами для графиков
      */
-    private void file_graphic(){
+    private void file_graphic()
+    {
         //сформируем первый файл с X - координатами
         try(FileWriter writer = new FileWriter(Filename_graph_X, false))
         {
@@ -366,14 +387,16 @@ class SigmaFunction {
      * @param t0 левая граница рабочего промежутка
      * @param T правая граница рабочего промежутка
      */
-    private double[][] form_sigma(double t0, double T) {
-        return matrix_mult(matrix_mult(F(T),3*Ampl), integral(FReverseStr(),t0,T));
+    private double[][] form_sigma(double t0, double T)
+    {
+        return matrixMultiplication(matrixMultiplication(F(T),3*A), integral(FReverse(),t0,T));
     }
 
     /**
      * Формирует оценку погрешности линеаризации
      */
-    public void evaluation() {
+    public void evaluation()
+    {
         //подготовка к записи в файл
         try(FileWriter writer = new FileWriter(Filename_text, false))
         {
