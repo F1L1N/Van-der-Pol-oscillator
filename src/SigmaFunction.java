@@ -222,7 +222,9 @@ class SigmaFunction {
      * @param expression строка для синтаксического анализа
      */
     private double f(double t, String expression) {
-        MathParser parser = new MathParser(omega, t);
+        MathParser parser = new MathParser();
+        parser.setVariable("omega",omega);
+        parser.setVariable("t",t);
         try {
             return parser.Parse(expression);
         } catch (Exception e) {

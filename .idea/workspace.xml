@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe2553a1-f426-4706-8aee-412468a88107" name="Default" comment="Added graphic exp for comparison">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/Complex.java" afterPath="" />
       <change beforePath="$PROJECT_DIR$/src/MathParser.java" afterPath="$PROJECT_DIR$/src/MathParser.java" />
-      <change beforePath="$PROJECT_DIR$/src/Paint.java" afterPath="$PROJECT_DIR$/src/Paint.java" />
-      <change beforePath="$PROJECT_DIR$/src/Program.java" afterPath="$PROJECT_DIR$/src/Program.java" />
+      <change beforePath="$PROJECT_DIR$/src/SigmaFunction.java" afterPath="$PROJECT_DIR$/src/SigmaFunction.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -36,11 +33,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SigmaFunction.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SigmaFunction.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/SigmaFunction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="10" selection-end-column="3" />
+            <state relative-caret-position="459">
+              <caret line="227" column="13" lean-forward="true" selection-start-line="227" selection-start-column="13" selection-end-line="227" selection-end-column="13" />
               <folding>
                 <element signature="e#6702#6703#0" expanded="true" />
                 <element signature="e#6761#6762#0" expanded="true" />
@@ -49,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MathParser.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MathParser.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MathParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1071">
-              <caret line="67" column="39" lean-forward="false" selection-start-line="67" selection-start-column="39" selection-end-line="67" selection-end-column="39" />
+            <state relative-caret-position="187">
+              <caret line="11" column="34" lean-forward="true" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -99,9 +96,9 @@
       <list>
         <option value="$PROJECT_DIR$/src/Up7.java" />
         <option value="$PROJECT_DIR$/src/Complex.java" />
-        <option value="$PROJECT_DIR$/src/SigmaFunction.java" />
         <option value="$PROJECT_DIR$/src/Paint.java" />
         <option value="$PROJECT_DIR$/src/Program.java" />
+        <option value="$PROJECT_DIR$/src/SigmaFunction.java" />
         <option value="$PROJECT_DIR$/src/MathParser.java" />
       </list>
     </option>
@@ -487,7 +484,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133475000" />
+    <option name="totallyTimeSpent" value="133647000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -954,17 +951,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/SigmaFunction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="10" selection-end-column="3" />
-          <folding>
-            <element signature="e#6702#6703#0" expanded="true" />
-            <element signature="e#6761#6762#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Paint.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
@@ -977,9 +963,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MathParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="67" column="39" lean-forward="false" selection-start-line="67" selection-start-column="39" selection-end-line="67" selection-end-column="39" />
+        <state relative-caret-position="187">
+          <caret line="11" column="34" lean-forward="true" selection-start-line="11" selection-start-column="34" selection-end-line="11" selection-end-column="34" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/SigmaFunction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="227" column="13" lean-forward="true" selection-start-line="227" selection-start-column="13" selection-end-line="227" selection-end-column="13" />
+          <folding>
+            <element signature="e#6702#6703#0" expanded="true" />
+            <element signature="e#6761#6762#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

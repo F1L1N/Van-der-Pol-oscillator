@@ -6,15 +6,11 @@ public class MathParser {
 
     /**
      * Конструктор класса
-     * @param omega - угловая частота
-     * @param t - время
      */
-    MathParser(double omega, double t) {
+    MathParser() {
         var = new HashMap<>();
         setVariable("pi",Math.PI);
         setVariable("e",Math.E);
-        setVariable("omega",omega);
-        setVariable("t",t);
     }
 
     /**
@@ -22,7 +18,7 @@ public class MathParser {
      * @param varName имя переменной
      * @param varValue значение переменной
      */
-    private static void setVariable(String varName, Double varValue) {
+    public void setVariable(String varName, Double varValue) {
         var.put(varName, varValue);
     }
 
