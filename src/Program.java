@@ -30,6 +30,7 @@ public class Program {
                     sigma.evaluation();
                     duration = System.currentTimeMillis() - startTime;
                     System.out.println("Затраченное время: " + duration / 1000 + " сек.");
+                    break;
                 case 3:
                     //вызов метода demonstration из класса Paint
                     try {
