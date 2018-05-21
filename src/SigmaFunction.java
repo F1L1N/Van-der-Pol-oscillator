@@ -86,16 +86,12 @@ class SigmaFunction {
      */
     private double[] nuAnalysis(){
         double[] lambda = new double[2];
-        if ((nu >= 0)&&(nu < 2)) {
-            Complex lambda1 = new Complex(nu/2, Math.sqrt(Math.abs(Math.pow(nu,2)-4))/2);
-            Complex lambda2 = new Complex(nu/2, -Math.sqrt(Math.abs(Math.pow(nu,2)-4))/2);
-        }else
-            if (nu >= 2){
-                lambda[0] = (nu + Math.sqrt(Math.pow(nu,2)-4))/2;
-                lambda[1] = (nu - Math.sqrt(Math.pow(nu,2)-4))/2;
-            }else{
-                System.out.print("nu из неверного промежутка");
-            }
+        if (nu >= 2) {
+            lambda[0] = (nu + Math.sqrt(Math.pow(nu, 2) - 4)) / 2;
+            lambda[1] = (nu - Math.sqrt(Math.pow(nu, 2) - 4)) / 2;
+        }else{
+            System.out.print("nu из неверного промежутка");
+        }
         return lambda;
     }
 
@@ -225,7 +221,7 @@ class SigmaFunction {
      * @param t фундаментальная матрица
      * @param expression строка для синтаксического анализа
      */
-    private double f(double t, String expression) throws Exception {
+    private double f(double t, String expression) {
         MathParser parser = new MathParser(omega, t);
         try {
             return parser.Parse(expression);
@@ -242,7 +238,7 @@ class SigmaFunction {
      * @param a нижний предел интегрирования
      * @param b верхний предел интегрирования
      */
-    private double integral(String s, double a, double b) throws Exception {
+    private double integral(String s, double a, double b) {
         int n = 10;
         double sum = 0, sum2 = 0;
         double[] x = new double[n];
@@ -264,7 +260,7 @@ class SigmaFunction {
      * @param a нижний предел интегрирования
      * @param b верхний предел интегрирования
      */
-    private double[][] integral(String[][] F, double a, double b) throws Exception {
+    private double[][] integral(String[][] F, double a, double b) {
         double[][] temp = new double[2][2];
         for (int i = 0; i < F.length; i++)
             for (int j = 0; j < F[i].length; j++)
@@ -368,15 +364,14 @@ class SigmaFunction {
      * @param t0 левая граница рабочего промежутка
      * @param T правая граница рабочего промежутка
      */
-    //метод для получения сигма - функции
-    private double[][] form_sigma(double t0, double T) throws Exception {
+    private double[][] form_sigma(double t0, double T) {
         return matrix_mult(matrix_mult(F(T),3*Ampl), integral(FReverseStr(),t0,T));
     }
 
     /**
      * Формирует оценку погрешности линеаризации
      */
-    public void evaluation() throws Exception {
+    public void evaluation() {
         //подготовка к записи в файл
         try(FileWriter writer = new FileWriter(Filename_text, false))
         {

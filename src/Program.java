@@ -25,7 +25,7 @@ public class Program {
                     break;
                 case 2:
                     //выполнение процедуры оценивания c уже заданными параметрами
-                    sigma = new SigmaFunction(0.001,1.2,2.1,2,0,100);
+                    sigma = new SigmaFunction(0.01,1.2,2.1,2,0,100);
                     startTime = System.currentTimeMillis();
                     sigma.evaluation();
                     duration = System.currentTimeMillis() - startTime;
