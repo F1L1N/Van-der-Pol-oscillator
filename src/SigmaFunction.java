@@ -144,7 +144,7 @@ class SigmaFunction
     private double[][] F(double t)
     {
         double[] b = B(t);
-        return matrix_sum(matrixMultiplication(E(),b[0]), matrixMultiplication(A(),b[1]));
+        return matrixSum(matrixMultiplication(E(),b[0]), matrixMultiplication(A(),b[1]));
     }
 
     /**
@@ -295,7 +295,7 @@ class SigmaFunction
      * @param a первое слагаемое
      * @param b второе слагаемое
      */
-    private double[][] matrix_sum(double[][] a, double[][] b)
+    private double[][] matrixSum(double[][] a, double[][] b)
     {
         double[][] result = new double[a.length][a[0].length];
         for (int i = 0; i < a.length; i++)
@@ -308,7 +308,7 @@ class SigmaFunction
      * Возвращает евклидову норму матрицы
      * @param sigma входная матрица
      */
-    private static double euc_norm(double[][] sigma)
+    private static double eucNorm(double[][] sigma)
     {
         double sum = 0;
         for (double[] h : sigma)
@@ -354,7 +354,7 @@ class SigmaFunction
     /**
      * Формирует файлы с координатами для графиков
      */
-    private void file_graphic()
+    private void fileGraphic()
     {
         //сформируем первый файл с X - координатами
         try(FileWriter writer = new FileWriter(Filename_graph_X, false))
@@ -391,7 +391,7 @@ class SigmaFunction
      * @param t0 левая граница рабочего промежутка
      * @param T правая граница рабочего промежутка
      */
-    private double[][] form_sigma(double t0, double T)
+    private double[][] formSigma(double t0, double T)
     {
         return matrixMultiplication(matrixMultiplication(F(T),3*A), integral(FReverse(),t0,T));
     }
@@ -407,9 +407,9 @@ class SigmaFunction
             System.out.println("Производится запись файла по пути "+Filename_text+"...");
             for (double i = t0; i < T; i+=h) {
                 //сформируем сигма - матрицу
-                double[][] sigma = form_sigma(t0, i);
+                double[][] sigma = formSigma(t0, i);
                 //подсчет нормы матрицы
-                double norma = euc_norm(sigma);
+                double norma = eucNorm(sigma);
                 //сравнение с целью получения точек экстремума
                 if (norma > g_max) {
                     g_max = norma;
@@ -427,7 +427,7 @@ class SigmaFunction
             //непосредственно запись в файл
             writer.flush();
             System.out.println("Запись завершена.");
-            file_graphic();
+            fileGraphic();
             System.out.println("Минимум достигнут в точке ("+g_min_t+"; "+g_min+")");
             System.out.println("Максимум достигнут в точке ("+g_max_t+"; "+g_max+")");
         }
