@@ -1,9 +1,9 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 /**
  * Класс сигма - функции
@@ -44,7 +44,7 @@ class SigmaFunction
     /**
      * словарь для хранения пар "X - Y координаты"
      */
-    private static TreeMap<Double, Double> dictionary = new TreeMap<>();
+    private static HashMap<Double, Double> dictionary = new HashMap<>();
 
     /**
      * Конструктор класса с уже определенными параметрами
@@ -241,7 +241,10 @@ class SigmaFunction
         parser.setVariable("omega",omega);
         parser.setVariable("t",t);
         try {
-            return parser.Parse(expression);
+            double result = parser.Parse(expression);
+            if (Double.isNaN(result)||Double.isInfinite(result))
+                return 0.0;
+            else return result;
         } catch (Exception e) {
             e.printStackTrace();
             return 1.0;
