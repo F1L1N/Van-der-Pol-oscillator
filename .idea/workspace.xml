@@ -4,19 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/src/Program.java" line="4" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe2553a1-f426-4706-8aee-412468a88107" name="Default" comment="Added graphic exp for comparison">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/data/evaluation.txt" afterPath="$PROJECT_DIR$/data/evaluation.txt" />
-      <change beforePath="$PROJECT_DIR$/data/x.txt" afterPath="$PROJECT_DIR$/data/x.txt" />
-      <change beforePath="$PROJECT_DIR$/data/y.txt" afterPath="$PROJECT_DIR$/data/y.txt" />
-      <change beforePath="$PROJECT_DIR$/out/production/FQW/MathParser$Result.class" afterPath="$PROJECT_DIR$/out/production/FQW/MathParser$Result.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/FQW/MathParser.class" afterPath="$PROJECT_DIR$/out/production/FQW/MathParser.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/FQW/Paint.class" afterPath="$PROJECT_DIR$/out/production/FQW/Paint.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/FQW/Program.class" afterPath="$PROJECT_DIR$/out/production/FQW/Program.class" />
-      <change beforePath="$PROJECT_DIR$/out/production/FQW/SigmaFunction.class" afterPath="$PROJECT_DIR$/out/production/FQW/SigmaFunction.class" />
-      <change beforePath="$PROJECT_DIR$/src/Program.java" afterPath="$PROJECT_DIR$/src/Program.java" />
-      <change beforePath="$PROJECT_DIR$/src/SigmaFunction.java" afterPath="$PROJECT_DIR$/src/SigmaFunction.java" />
-    </list>
+    <list default="true" id="fe2553a1-f426-4706-8aee-412468a88107" name="Default" comment="Added graphic exp for comparison" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -484,7 +472,7 @@
       <workItem from="1526725985744" duration="5006000" />
       <workItem from="1527166613244" duration="1254000" />
       <workItem from="1527167908487" duration="1716000" />
-      <workItem from="1527493661202" duration="1231000" />
+      <workItem from="1527493661202" duration="1285000" />
     </task>
     <task id="LOCAL-00001" summary="Added graphic exp for comparison">
       <created>1525514115962</created>
@@ -497,7 +485,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143584000" />
+    <option name="totallyTimeSpent" value="143638000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1288" y="48" width="1296" height="1040" extended-state="6" />
@@ -512,7 +500,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4034553" sideWeight="0.52916664" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37931034" sideWeight="0.47083333" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.6896552" sideWeight="0.47083333" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
