@@ -10,7 +10,6 @@ import java.util.Scanner;
 
 /**
  * Класс сигма - функции
- *
  */
 
 class SigmaFunction {
@@ -180,7 +179,8 @@ class SigmaFunction {
      */
     private BigDecimal[][] F(double t) {
         BigDecimal[] b = B(t);
-        return matrixSum(matrixMultiplication(E(), b[0]), matrixMultiplication(A(), b[1]));
+        Matrix result = new Matrix();
+        return result.matrixSum(result.matrixMultiplication(E(), b[0]), result.matrixMultiplication(A(), b[1]));
     }
 
     /**
@@ -258,7 +258,7 @@ class SigmaFunction {
      * @param tao второй параметр Матрицы Коши
      */
     private BigDecimal[][] K(double t, double tao) {
-        return matrixMultiplication(F(t), FReverse(F(tao)));
+        return new Matrix().matrixMultiplication(F(t), FReverse(F(tao)));
     }
 
     /**
@@ -319,34 +319,6 @@ class SigmaFunction {
     }
 
     /**
-     * Возвращает сумму матриц
-     *
-     * @param a первое слагаемое
-     * @param b второе слагаемое
-     */
-    private double[][] matrixSum(double[][] a, double[][] b) {
-        double[][] result = new double[a.length][a[0].length];
-        for (int i = 0; i < a.length; i++)
-            for (int j = 0; j < a[i].length; j++)
-                result[i][j] = a[i][j] + b[i][j];
-        return result;
-    }
-
-    /**
-     * Возвращает сумму матриц
-     *
-     * @param a первое слагаемое
-     * @param b второе слагаемое
-     */
-    private BigDecimal[][] matrixSum(BigDecimal[][] a, BigDecimal[][] b) {
-        BigDecimal[][] result = new BigDecimal[a.length][a[0].length];
-        for (int i = 0; i < a.length; i++)
-            for (int j = 0; j < a[i].length; j++)
-                result[i][j] = a[i][j].add(b[i][j]);
-        return result;
-    }
-
-    /**
      * Возвращает p - норму матрицы
      *
      * @param sigma входная матрица
@@ -358,73 +330,6 @@ class SigmaFunction {
                 if (h[j].abs().compareTo(max) > 0) max = (h[j]).abs();
             }
         return max;
-    }
-
-    /**
-     * Возвращает произведение матриц
-     *
-     * @param mA первый множитель
-     * @param mB второй множитель
-     */
-    private double[][] matrixMultiplication(double[][] mA, double[][] mB) {
-        double[][] res = new double[mA.length][mB[0].length];
-        for (int i = 0; i < mA.length; i++) {
-            for (int j = 0; j < mB[0].length; j++) {
-                for (int k = 0; k < mB.length; k++) {
-                    res[i][j] += mA[i][k] * mB[k][j];
-                }
-            }
-        }
-        return res;
-    }
-
-    /**
-     * Возвращает произведение матриц
-     *
-     * @param mA первый множитель
-     * @param mB второй множитель
-     */
-    private BigDecimal[][] matrixMultiplication(BigDecimal[][] mA, BigDecimal[][] mB) {
-        BigDecimal[][] res = new BigDecimal[mA.length][mB[0].length];
-        for (int i = 0; i < mA.length; i++) {
-            for (int j = 0; j < mB[0].length; j++) {
-                res[i][j] = BigDecimal.valueOf(0);
-                for (int k = 0; k < mB.length; k++) {
-                    res[i][j] = res[i][j].add(mA[i][k].multiply(mB[k][j]));
-                }
-            }
-        }
-        return res;
-    }
-
-    /**
-     * Возвращает произведение матрицы на число
-     *
-     * @param mA матрица
-     * @param mB число
-     */
-    private BigDecimal[][] matrixMultiplication(BigDecimal[][] mA, BigDecimal mB) {
-        for (int i = 0; i < mA.length; i++) {
-            for (int j = 0; j < mA[i].length; j++) {
-                mA[i][j] = mA[i][j].multiply(mB);
-            }
-        }
-        return mA;
-    }
-
-    /**
-     * Возвращает произведение матрицы на число
-     *
-     * @param mA матрица
-     * @param mB число
-     */
-    private BigDecimal[][] matrixMultiplication(BigDecimal[][] mA, double mB) {
-        for (int i = 0; i < mA.length; i++) {
-            for (int j = 0; j < mA[i].length; j++) {
-                mA[i][j] = mA[i][j].multiply(BigDecimal.valueOf(mB));
-            }
-        }
-        return mA;
     }
 
     /**
@@ -456,57 +361,13 @@ class SigmaFunction {
     }
 
     /**
-     * Возвращает массив строк,
-     * разбитый по точке
-     *
-     * @param str строка для обработки
-     */
-    private String[] split(String str) {
-        String[] split = new String[2];
-        int index = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == '.') {
-                index = i;
-                break;
-            }
-        }
-        split[0] = str.substring(0, index);
-        split[1] = str.substring(index + 1, str.length());
-        return split;
-    }
-
-    /**
-     * Возвращает форматированную строку для вставки в файл
-     *
-     * @param number число для анализа
-     */
-    private String formStr(BigDecimal number) {
-        number = number.setScale(SCALE, BigDecimal.ROUND_HALF_UP);
-        String str = number.toString();
-        //нет точки
-        if (str.indexOf('.') == -1) {
-            str = str.charAt(0) + "." + str.substring(1, SCALE - 1) + "E" + (str.length() - 1);
-        }
-        //точка есть
-        else {
-            String[] temp = split(str);
-            //число типа "0.001"
-            if (temp[0].length() > SCALE - 4) {
-                //число типа "10000000.01"
-                str = temp[0].charAt(0) + "." + temp[0].substring(1, SCALE - 4) + "E" + (temp[0].length() - 1);
-            }
-        }
-        return str;
-    }
-
-    /**
      * Возвращает сигма - функцию
      *
      * @param t0 левая граница рабочего промежутка
      * @param T  правая граница рабочего промежутка
      */
     private BigDecimal[][] formSigma(double t0, double T) {
-        return matrixMultiplication(matrixMultiplication(F(T), 3 * A), integral(FReverse(), t0, T));
+        return new Matrix().matrixMultiplication(new Matrix().matrixMultiplication(F(T), 3 * A), integral(FReverse(), t0, T));
     }
 
     /**
@@ -523,7 +384,7 @@ class SigmaFunction {
                 BigDecimal norma = pNorm(sigma);
                 dictionary.put(i, norma);
                 //запись данных в буфер
-                writer.write("t = " + i + ", ||δ|| = " + formStr(norma) + "\r\n");
+                writer.write("t = " + i + ", ||δ|| = " + new Line(norma, SCALE).getStr() + "\r\n");
                 writer.write("δ: " + Arrays.deepToString(sigma) + "\r\n\r\n");
             }
             System.out.println("Завершение расчетов...");
